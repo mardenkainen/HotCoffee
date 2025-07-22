@@ -4,26 +4,25 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hotcoffee.presentaton.model.CoffeeHouse
+import com.example.hotcoffee.ui.theme.HotCoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharactersList(
+fun CoffeeHousesList(
     modifier: Modifier = Modifier,
     coffeeHouses: List<CoffeeHouse>,
     onClick: (CoffeeHouse) -> Unit
 ) {
-    LazyVerticalGrid(
+    LazyColumn(
         modifier = modifier,
-        columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(all = 16.dp)
     ) {
         items(count = coffeeHouses.size) {
@@ -33,5 +32,23 @@ fun CharactersList(
         }
         item { Spacer(modifier = Modifier.padding(100.dp)) }
     }
+}
 
+@Preview(showBackground = true)
+@Composable
+fun CoffeeHousesListPreview() {
+    HotCoffeeTheme {
+        CoffeeHousesList(
+            coffeeHouses = listOf(CoffeeHouse(
+                id = 1,
+                name = "Звездные баксы",
+                distanceToUser = 10
+            ),
+                CoffeeHouse(
+                id = 1,
+                name = "Звездные баксы",
+                distanceToUser = 10
+            ))
+        ) { }
+    }
 }
