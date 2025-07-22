@@ -1,6 +1,5 @@
 package com.example.hotcoffee.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +19,11 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    background = PrimaryWhite,
+    primaryContainer = DarkBrown,
+    onPrimaryContainer = DarkBrown,
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -36,8 +39,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun HotCoffeeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

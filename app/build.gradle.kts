@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.plugin.serializaton)
 }
 
 android {
@@ -57,21 +59,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation ("androidx.datastore:datastore-preferences:1.0.0")
-
-//Retrofit
-    val retrofit_version = "2.9.0"
-    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
-
-//Hilt
-    val hilt_version = "2.44"
-    implementation ("com.google.dagger:hilt-android:$hilt_version")
-    ksp("com.google.dagger:hilt-compiler:$hilt_version")
-
-//OkHttp
-    val okhttp_version = "4.10.0"
-    implementation ("com.squareup.okhttp3:okhttp:$okhttp_version")
-    implementation ("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+    implementation (libs.androidx.datastore.preferences)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }
