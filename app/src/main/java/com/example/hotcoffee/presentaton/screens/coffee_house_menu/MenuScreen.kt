@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.hotcoffee.data.remote.models.MenuItem
 import com.example.hotcoffee.presentaton.common.RoundedButton
 import com.example.hotcoffee.presentaton.common.TopBar
 import com.example.hotcoffee.ui.theme.HotCoffeeTheme
@@ -25,14 +26,28 @@ fun MenuScreen(modifier: Modifier = Modifier) {
             modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(horizontal = 18.dp)
-                .padding(bottom = 18.dp),
-            verticalArrangement = Arrangement.SpaceBetween ,
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 8.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
 
-            CoffeeHouseMenu(menuItems = listOf()) {
+            CoffeeHouseMenu(
+                menuItems = listOf(
+                    MenuItem(
+                        id = 1,
+                        name = "Coffee",
+                        imageURL = "",
+                        price = 100
+                    ), MenuItem(
+                        id = 2,
+                        name = "Coffee2",
+                        imageURL = "",
+                        price = 200
+                    )
+                )
+            ) {
 
             }
 

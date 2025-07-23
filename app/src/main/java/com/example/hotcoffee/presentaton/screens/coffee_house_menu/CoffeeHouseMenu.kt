@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hotcoffee.data.remote.models.MenuItem
+import com.example.hotcoffee.ui.theme.HotCoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,5 +34,27 @@ fun CoffeeHouseMenu(
             }
         }
         item { Spacer(modifier = Modifier.padding(100.dp)) }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CoffeeHouseMenuPreview() {
+    HotCoffeeTheme {
+        CoffeeHouseMenu(
+            menuItems = listOf(
+                MenuItem(
+                    id = 1,
+                    name = "Coffee",
+                    imageURL = "",
+                    price = 100
+                ), MenuItem(
+                    id = 2,
+                    name = "Coffee2",
+                    imageURL = "",
+                    price = 200
+                )
+            )
+        ) { }
     }
 }
