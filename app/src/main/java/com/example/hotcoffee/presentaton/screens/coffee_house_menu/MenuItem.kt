@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,9 +31,9 @@ import com.example.hotcoffee.R
 import com.example.hotcoffee.data.remote.models.MenuItem
 import com.example.hotcoffee.presentaton.common.CounterItem
 import com.example.hotcoffee.presentaton.common.forwardingPainter
-import com.example.hotcoffee.ui.theme.CreamText
-import com.example.hotcoffee.ui.theme.HotCoffeeTheme
-import com.example.hotcoffee.ui.theme.PastelGray
+import com.example.hotcoffee.presentaton.ui.theme.CreamText
+import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
+import com.example.hotcoffee.presentaton.ui.theme.PastelGray
 
 @Composable
 fun MenuItem(menuItem: MenuItem, onClick: () -> Unit) {

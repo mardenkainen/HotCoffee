@@ -16,8 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.hotcoffee.ui.theme.HotCoffeeTheme
-import com.example.hotcoffee.ui.theme.PastelGray
+import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
+import com.example.hotcoffee.presentaton.ui.theme.PastelGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

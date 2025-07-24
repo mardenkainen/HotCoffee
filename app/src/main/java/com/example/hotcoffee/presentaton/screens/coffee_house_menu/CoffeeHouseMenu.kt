@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hotcoffee.data.remote.models.MenuItem
-import com.example.hotcoffee.ui.theme.HotCoffeeTheme
+import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

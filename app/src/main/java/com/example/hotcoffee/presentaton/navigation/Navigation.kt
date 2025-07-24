@@ -1,18 +1,22 @@
 package com.example.hotcoffee.presentaton.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.hotcoffee.presentaton.screens.cart.CartScreen
+import com.example.hotcoffee.presentaton.screens.cart.CartViewModel
 import com.example.hotcoffee.presentaton.screens.coffee_house_menu.MenuScreen
+import com.example.hotcoffee.presentaton.screens.coffee_house_menu.MenuViewModel
 import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesScreen
+import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesViewModel
 import com.example.hotcoffee.presentaton.screens.login.LoginScreen
+import com.example.hotcoffee.presentaton.screens.login.LoginViewModel
 import com.example.hotcoffee.presentaton.screens.map.MapScreen
+import com.example.hotcoffee.presentaton.screens.map.MapViewModel
 import com.example.hotcoffee.presentaton.screens.register.RegisterScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,36 +25,41 @@ fun Navigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(
-        startDestination = Screen.Registration,
+        startDestination = Screen.Login,
         navController = navController
     ) {
         composable<Screen.Registration> {
             RegisterScreen(
                 modifier, {
                     navController.navigate(
-                        Screen.Login
+                        Screen.CoffeeHousesList
                     )
                 })
         }
 
         composable<Screen.Login> {
-            LoginScreen(modifier)
+            val viewModel: LoginViewModel = hiltViewModel()
+            LoginScreen(navController)
         }
 
         composable<Screen.Cart> {
-            CartScreen(modifier)
+            val viewModel: CartViewModel = hiltViewModel()
+            CartScreen(navController, viewModel)
         }
 
         composable<Screen.Menu> {
-            MenuScreen(modifier)
+            val viewModel: MenuViewModel = hiltViewModel()
+            MenuScreen(navController, viewModel)
         }
 
         composable<Screen.CoffeeHousesList> {
-            CoffeeHousesScreen(modifier)
+            val viewModel: CoffeeHousesViewModel = hiltViewModel()
+            CoffeeHousesScreen(navController, viewModel)
         }
 
         composable<Screen.Map> {
-            MapScreen(modifier)
+            val viewModel: MapViewModel = hiltViewModel()
+            MapScreen(navController, viewModel)
         }
     }
 

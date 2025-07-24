@@ -1,4 +1,4 @@
-package com.example.hotcoffee.ui.theme
+package com.example.hotcoffee.presentaton.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

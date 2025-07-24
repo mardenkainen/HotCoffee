@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl(
     private val authService: AuthApiService
 ) : AuthRepository {
     override fun login(login: String, password: String) = apiRequestFlow {

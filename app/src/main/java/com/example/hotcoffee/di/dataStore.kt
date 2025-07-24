@@ -8,6 +8,8 @@ import com.example.hotcoffee.data.local.TokenManager
 import com.example.hotcoffee.data.remote.api.AuthApiService
 import com.example.hotcoffee.data.remote.api.CoffeeApiService
 import com.example.hotcoffee.data.remote.interceptors.AuthInterceptor
+import com.example.hotcoffee.data.remote.repositories.AuthRepositoryImpl
+import com.example.hotcoffee.domain.repositories.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,11 +25,12 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "da
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SingletonModule {
+object SingletonModule {
 
     @Singleton
     @Provides
-    fun provideTokenManager(@ApplicationContext context: Context): TokenManager = TokenManager(context)
+    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
+        TokenManager(context)
 
     @Singleton
     @Provides
@@ -57,16 +60,26 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideAuthAPIService(retrofit: Retrofit.Builder): AuthApiService =
-        retrofit
+    fun provideAuthApiService(): AuthApiService =
+        Retrofit.Builder()
+            .baseUrl("http://212.41.30.90:35005")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AuthApiService::class.java)
 
     @Singleton
     @Provides
-    fun provideCoffeeApiService(okHttpClient: OkHttpClient, retrofit: Retrofit.Builder): CoffeeApiService =
+    fun provideCoffeeApiService(
+        okHttpClient: OkHttpClient,
+        retrofit: Retrofit.Builder
+    ): CoffeeApiService =
         retrofit
             .client(okHttpClient)
             .build()
             .create(CoffeeApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(authApiService: AuthApiService): AuthRepository =
+        AuthRepositoryImpl(authService = authApiService)
 }

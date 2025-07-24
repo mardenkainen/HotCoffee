@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hotcoffee.presentaton.model.CoffeeHouse
-import com.example.hotcoffee.ui.theme.HotCoffeeTheme
+import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
 fun CoffeeHouseCard(modifier: Modifier = Modifier, coffeeHouse: CoffeeHouse, onClick: () -> Unit) {

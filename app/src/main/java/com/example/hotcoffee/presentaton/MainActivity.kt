@@ -1,4 +1,4 @@
-package com.example.hotcoffee
+package com.example.hotcoffee.presentaton
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hotcoffee.presentaton.navigation.Navigation
 import com.example.hotcoffee.presentaton.screens.register.RegisterScreen
-import com.example.hotcoffee.ui.theme.HotCoffeeTheme
+import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
