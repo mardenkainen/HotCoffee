@@ -18,16 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.hotcoffee.presentaton.model.CoffeeHouse
+import com.example.hotcoffee.presentaton.model.CoffeeHouseItem
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
-fun CoffeeHouseCard(modifier: Modifier = Modifier, coffeeHouse: CoffeeHouse, onClick: () -> Unit) {
+fun CoffeeHouseCard(modifier: Modifier = Modifier, coffeeHouse: CoffeeHouseItem, onClick: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .shadow(2.dp)
             .clip(shape = RoundedCornerShape(6.dp))
+            .shadow(6.dp)
             .clickable { onClick() }
             .background(
                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -57,7 +57,7 @@ fun CoffeeHouseCard(modifier: Modifier = Modifier, coffeeHouse: CoffeeHouse, onC
 fun CoffeeHouseCardPreview() {
     HotCoffeeTheme {
         CoffeeHouseCard(
-            coffeeHouse = CoffeeHouse(
+            coffeeHouse = CoffeeHouseItem(
                 id = 1,
                 name = "Звездные баксы",
                 distanceToUser = 10

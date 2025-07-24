@@ -9,7 +9,9 @@ import com.example.hotcoffee.data.remote.api.AuthApiService
 import com.example.hotcoffee.data.remote.api.CoffeeApiService
 import com.example.hotcoffee.data.remote.interceptors.AuthInterceptor
 import com.example.hotcoffee.data.remote.repositories.AuthRepositoryImpl
+import com.example.hotcoffee.data.remote.repositories.CoffeeHouseRepositoryImpl
 import com.example.hotcoffee.domain.repositories.AuthRepository
+import com.example.hotcoffee.domain.repositories.CoffeeHouseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,12 +39,8 @@ object SingletonModule {
     fun provideOkHttpClient(
         authInterceptor: AuthInterceptor,
     ): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
-            .addInterceptor(loggingInterceptor)
             .build()
     }
 
@@ -55,15 +53,13 @@ object SingletonModule {
     @Provides
     fun provideRetrofitBuilder(): Retrofit.Builder =
         Retrofit.Builder()
-            .baseUrl("https://jwt-test-api.onrender.com/api/")
+            .baseUrl("http://212.41.30.90:35005")
             .addConverterFactory(GsonConverterFactory.create())
 
     @Singleton
     @Provides
-    fun provideAuthApiService(): AuthApiService =
-        Retrofit.Builder()
-            .baseUrl("http://212.41.30.90:35005")
-            .addConverterFactory(GsonConverterFactory.create())
+    fun provideAuthApiService(retrofit: Retrofit.Builder): AuthApiService =
+        retrofit
             .build()
             .create(AuthApiService::class.java)
 
@@ -82,4 +78,9 @@ object SingletonModule {
     @Singleton
     fun provideAuthRepository(authApiService: AuthApiService): AuthRepository =
         AuthRepositoryImpl(authService = authApiService)
+
+    @Provides
+    @Singleton
+    fun provideCoffeeHousesRepository(coffeeApiService: CoffeeApiService): CoffeeHouseRepository =
+        CoffeeHouseRepositoryImpl(coffeeHouseService = coffeeApiService)
 }

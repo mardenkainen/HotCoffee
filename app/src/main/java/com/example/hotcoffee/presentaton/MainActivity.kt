@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             HotCoffeeTheme {
-                Navigation(modifier = Modifier.fillMaxSize())
+                Navigation()
             }
         }
     }
@@ -35,15 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainActivityPreview() {
     HotCoffeeTheme {
-        Navigation(modifier = Modifier.fillMaxSize())
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterPreview() {
-    HotCoffeeTheme {
-        RegisterScreen(modifier = Modifier.fillMaxSize()) { }
+        Navigation()
     }
 }

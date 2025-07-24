@@ -21,7 +21,7 @@ import com.example.hotcoffee.presentaton.screens.register.RegisterScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(modifier: Modifier = Modifier) {
+fun Navigation() {
     val navController = rememberNavController()
 
     NavHost(
@@ -29,16 +29,10 @@ fun Navigation(modifier: Modifier = Modifier) {
         navController = navController
     ) {
         composable<Screen.Registration> {
-            RegisterScreen(
-                modifier, {
-                    navController.navigate(
-                        Screen.CoffeeHousesList
-                    )
-                })
+            RegisterScreen(navController = navController)
         }
 
         composable<Screen.Login> {
-            val viewModel: LoginViewModel = hiltViewModel()
             LoginScreen(navController)
         }
 
@@ -54,7 +48,7 @@ fun Navigation(modifier: Modifier = Modifier) {
 
         composable<Screen.CoffeeHousesList> {
             val viewModel: CoffeeHousesViewModel = hiltViewModel()
-            CoffeeHousesScreen(navController, viewModel)
+            CoffeeHousesScreen(navController)
         }
 
         composable<Screen.Map> {

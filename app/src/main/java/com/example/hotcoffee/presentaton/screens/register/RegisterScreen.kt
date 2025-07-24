@@ -10,33 +10,49 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.hotcoffee.presentaton.common.InputTextField
 import com.example.hotcoffee.presentaton.common.RoundedButton
 import com.example.hotcoffee.presentaton.common.TopBar
+import com.example.hotcoffee.presentaton.navigation.Screen
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(modifier: Modifier = Modifier, onRegister: () -> Unit) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+fun RegisterScreen(navController: NavController) {
+    val registerViewModel: RegisterViewModel =  hiltViewModel()
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var confirmPassword by rememberSaveable { mutableStateOf("") }
+    val userIsLogged by registerViewModel.userIsLogged.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = userIsLogged) {
+        if (userIsLogged) {
+            navController.navigate(Screen.CoffeeHousesList) {
+                popUpTo(Screen.Registration) { inclusive = true }
+            }
+        }
+    }
 
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = { TopBar(title = "Регистрация") },
     ) { innerPadding ->
 
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .padding(innerPadding)
                 .padding(horizontal = 18.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -80,7 +96,7 @@ fun RegisterScreen(modifier: Modifier = Modifier, onRegister: () -> Unit) {
 
             RoundedButton(
                 text = "Регистрация",
-                onClick = onRegister
+                onClick = { registerViewModel.register(email, password, confirmPassword) }
             )
         }
     }
@@ -90,6 +106,6 @@ fun RegisterScreen(modifier: Modifier = Modifier, onRegister: () -> Unit) {
 @Composable
 fun RegisterScreenPreview() {
     HotCoffeeTheme {
-        RegisterScreen(Modifier.fillMaxSize()) { }
+        RegisterScreen(rememberNavController())
     }
 }

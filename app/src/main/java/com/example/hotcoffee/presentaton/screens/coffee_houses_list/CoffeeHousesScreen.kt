@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hotcoffee.presentaton.common.RoundedButton
@@ -18,8 +19,10 @@ import com.example.hotcoffee.presentaton.common.TopBar
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
-fun CoffeeHousesScreen(navController: NavHostController, coffeeHousesViewModel: CoffeeHousesViewModel) {
-
+fun CoffeeHousesScreen(navController: NavHostController) {
+    
+    val coffeeHousesViewModel: CoffeeHousesViewModel = hiltViewModel()
+    val list = coffeeHousesViewModel.coffeeHouses.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { TopBar(title = "Ближайшие кофейни") {
@@ -37,7 +40,7 @@ fun CoffeeHousesScreen(navController: NavHostController, coffeeHousesViewModel: 
         ) {
 
 
-            CoffeeHousesList(coffeeHouses = listOf()) {
+            CoffeeHousesList(coffeeHouses = list.value) {
 
             }
 
@@ -50,6 +53,6 @@ fun CoffeeHousesScreen(navController: NavHostController, coffeeHousesViewModel: 
 @Composable
 fun CoffeeHousesScreenPreview() {
     HotCoffeeTheme {
-        CoffeeHousesScreen(navController = rememberNavController(), hiltViewModel())
+        CoffeeHousesScreen(navController = rememberNavController())
     }
 }
