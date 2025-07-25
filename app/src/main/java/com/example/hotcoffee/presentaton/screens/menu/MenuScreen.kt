@@ -1,4 +1,4 @@
-package com.example.hotcoffee.presentaton.screens.coffee_house_menu
+package com.example.hotcoffee.presentaton.screens.menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,14 +16,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hotcoffee.presentaton.common.RoundedButton
 import com.example.hotcoffee.presentaton.common.TopBar
+import com.example.hotcoffee.presentaton.navigation.Screen
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
-fun MenuScreen(navController: NavHostController, coffeeHouseId: Int) {
-
-    val menuViewModel: MenuViewModel = hiltViewModel()
-    menuViewModel.loadMenu(coffeeHouseId)
+fun MenuScreen(navController: NavHostController, menuViewModel: MenuViewModel, coffeeHouseId: Int) {
     val menu = menuViewModel.menu.collectAsStateWithLifecycle()
+    menuViewModel.loadMenu(coffeeHouseId)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -41,13 +40,14 @@ fun MenuScreen(navController: NavHostController, coffeeHouseId: Int) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             CoffeeHouseMenu(
                 menuItems = menu.value,
                 onIncrease = { menuViewModel.addToCart(it) },
                 onDecrease = { menuViewModel.removeFromCart(it) })
 
-            RoundedButton("Перейти к оплате") { }
+            RoundedButton("Перейти к оплате") {
+                navController.navigate(Screen.Cart)
+            }
         }
     }
 }
@@ -56,6 +56,6 @@ fun MenuScreen(navController: NavHostController, coffeeHouseId: Int) {
 @Composable
 fun MenuScreenPreview() {
     HotCoffeeTheme {
-        MenuScreen(navController = rememberNavController(), 1)
+        MenuScreen(navController = rememberNavController(), hiltViewModel(), 1)
     }
 }

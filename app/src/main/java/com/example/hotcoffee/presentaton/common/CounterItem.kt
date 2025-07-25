@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -18,8 +19,10 @@ fun CounterItem(
     modifier: Modifier = Modifier,
     count: Int = 0,
     onIncrease: ()-> Unit,
-    onDecrease: ()->Unit
-) {
+    onDecrease: ()->Unit,
+    textColor: Color = MaterialTheme.colorScheme.primary,
+    iconColor: Color = MaterialTheme.colorScheme.primary
+    ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -29,7 +32,7 @@ fun CounterItem(
                 text = "–",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = CreamText
+                color = iconColor
             )
         }
 
@@ -37,7 +40,7 @@ fun CounterItem(
             text = "$count",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+            color = textColor
         )
 
         IconButton(onClick = onIncrease) {
@@ -45,7 +48,7 @@ fun CounterItem(
                 text = "+",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = CreamText
+                color = iconColor
             )
         }
     }
