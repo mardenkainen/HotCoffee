@@ -20,6 +20,9 @@ class RegisterViewModel @Inject constructor(
     private val _userIsLogged = MutableStateFlow(false)
     val userIsLogged = _userIsLogged.asStateFlow()
     fun register(name: String, password: String, confirmPassword: String) {
+        if (password != confirmPassword) {
+            return
+        }
         viewModelScope.launch {
             authRepository.register(name, password).collect { response ->
                 when (response) {

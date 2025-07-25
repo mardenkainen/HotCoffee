@@ -22,7 +22,6 @@ import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 @Composable
 fun MenuScreen(navController: NavHostController, menuViewModel: MenuViewModel, coffeeHouseId: Int) {
     val menu = menuViewModel.menu.collectAsStateWithLifecycle()
-    menuViewModel.loadMenu(coffeeHouseId)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
