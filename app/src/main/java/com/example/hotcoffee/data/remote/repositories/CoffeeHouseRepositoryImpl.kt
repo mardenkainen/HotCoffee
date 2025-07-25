@@ -21,5 +21,5 @@ class CoffeeHouseRepositoryImpl @Inject constructor(
 
     override fun getMenuPositions(coffeeHouseId: Int): Flow<ApiResponse<List<MenuPosition>>> = apiRequestFlow {
         coffeeHouseService.getCoffeeHouseMenu(coffeeHouseId)
-    }.map { apiResponse -> apiResponse.map { it.menuItems.map { item -> item.toMenuPosition() } } }
+    }.map { apiResponse -> apiResponse.map { it.map { item -> item.toMenuPosition() } } }
 }

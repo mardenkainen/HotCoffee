@@ -2,11 +2,11 @@ package com.example.hotcoffee.presentaton.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.hotcoffee.presentaton.screens.cart.CartScreen
 import com.example.hotcoffee.presentaton.screens.cart.CartViewModel
 import com.example.hotcoffee.presentaton.screens.coffee_house_menu.MenuScreen
@@ -14,7 +14,6 @@ import com.example.hotcoffee.presentaton.screens.coffee_house_menu.MenuViewModel
 import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesScreen
 import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesViewModel
 import com.example.hotcoffee.presentaton.screens.login.LoginScreen
-import com.example.hotcoffee.presentaton.screens.login.LoginViewModel
 import com.example.hotcoffee.presentaton.screens.map.MapScreen
 import com.example.hotcoffee.presentaton.screens.map.MapViewModel
 import com.example.hotcoffee.presentaton.screens.register.RegisterScreen
@@ -41,9 +40,10 @@ fun Navigation() {
             CartScreen(navController, viewModel)
         }
 
-        composable<Screen.Menu> {
+        composable<Screen.Menu> { backStackEntry ->
+            val menu: Screen.Menu = backStackEntry.toRoute()
             val viewModel: MenuViewModel = hiltViewModel()
-            MenuScreen(navController, viewModel)
+            MenuScreen(navController, menu.coffeeHouseId)
         }
 
         composable<Screen.CoffeeHousesList> {

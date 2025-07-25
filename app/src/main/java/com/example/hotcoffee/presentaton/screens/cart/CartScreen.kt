@@ -36,9 +36,9 @@ fun CartScreen(navController: NavHostController, viewModel: CartViewModel) {
         ) {
 
 
-            CoffeeHouseMenu(menuItems = listOf()) {
+            /*CoffeeHouseMenu(menuItems = listOf()) {
 
-            }
+            }*/
 
             RoundedButton("Оплатить") { }
         }

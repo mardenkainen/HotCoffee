@@ -26,9 +26,9 @@ fun CoffeeHouseCard(modifier: Modifier = Modifier, coffeeHouse: CoffeeHouseItem,
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(6.dp))
-            .shadow(6.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(6.dp))
             .clickable { onClick() }
+            .clip(shape = RoundedCornerShape(6.dp))
             .background(
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )

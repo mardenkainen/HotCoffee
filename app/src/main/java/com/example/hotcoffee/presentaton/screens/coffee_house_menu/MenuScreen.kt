@@ -11,21 +11,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.hotcoffee.data.remote.models.MenuItem
 import com.example.hotcoffee.presentaton.common.RoundedButton
 import com.example.hotcoffee.presentaton.common.TopBar
-import com.example.hotcoffee.presentaton.screens.cart.CartViewModel
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
-fun MenuScreen(navController: NavHostController, menuViewModel: MenuViewModel) {
+fun MenuScreen(navController: NavHostController, coffeeHouseId: Int) {
 
+    val menuViewModel: MenuViewModel = hiltViewModel()
+    menuViewModel.loadMenu(coffeeHouseId)
+    val menu = menuViewModel.menu.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopBar(title = "Меню") { } },
+        topBar = {
+            TopBar(title = "Меню") {
+                navController.popBackStack()
+            }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -38,22 +43,9 @@ fun MenuScreen(navController: NavHostController, menuViewModel: MenuViewModel) {
         ) {
 
             CoffeeHouseMenu(
-                menuItems = listOf(
-                    MenuItem(
-                        id = 1,
-                        name = "Coffee",
-                        imageURL = "",
-                        price = 100
-                    ), MenuItem(
-                        id = 2,
-                        name = "Coffee2",
-                        imageURL = "",
-                        price = 200
-                    )
-                )
-            ) {
-
-            }
+                menuItems = menu.value,
+                onIncrease = { menuViewModel.addToCart(it) },
+                onDecrease = { menuViewModel.removeFromCart(it) })
 
             RoundedButton("Перейти к оплате") { }
         }
@@ -64,6 +56,6 @@ fun MenuScreen(navController: NavHostController, menuViewModel: MenuViewModel) {
 @Composable
 fun MenuScreenPreview() {
     HotCoffeeTheme {
-        MenuScreen(navController = rememberNavController(), hiltViewModel())
+        MenuScreen(navController = rememberNavController(), 1)
     }
 }

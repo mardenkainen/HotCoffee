@@ -20,6 +20,7 @@ fun CoffeeHouseInfo.toCoffeeHouse() = CoffeeHouse(
 )
 
 fun MenuItem.toMenuPosition() = MenuPosition(
+    id = id,
     name = name,
     price = price,
     imageURL = imageURL,

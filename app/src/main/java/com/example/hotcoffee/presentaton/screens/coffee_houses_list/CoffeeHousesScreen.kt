@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hotcoffee.presentaton.common.RoundedButton
 import com.example.hotcoffee.presentaton.common.TopBar
+import com.example.hotcoffee.presentaton.navigation.Screen
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @Composable
@@ -25,9 +26,7 @@ fun CoffeeHousesScreen(navController: NavHostController) {
     val list = coffeeHousesViewModel.coffeeHouses.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopBar(title = "Ближайшие кофейни") {
-            navController.navigateUp()
-        } },
+        topBar = { TopBar(title = "Ближайшие кофейни") },
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -40,8 +39,8 @@ fun CoffeeHousesScreen(navController: NavHostController) {
         ) {
 
 
-            CoffeeHousesList(coffeeHouses = list.value) {
-
+            CoffeeHousesList(coffeeHouses = list.value) { coffeeHouseItem ->
+                navController.navigate(Screen.Menu(coffeeHouseItem.id))
             }
 
             RoundedButton("На карте") { }

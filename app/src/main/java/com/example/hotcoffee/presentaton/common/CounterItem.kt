@@ -16,13 +16,15 @@ import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 @Composable
 fun CounterItem(
     modifier: Modifier = Modifier,
-    count: Int = 0
+    count: Int = 0,
+    onIncrease: ()-> Unit,
+    onDecrease: ()->Unit
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(onClick = { }) {
+        IconButton(onClick = onDecrease) {
             Text(
                 text = "–",
                 fontSize = 18.sp,
@@ -38,7 +40,7 @@ fun CounterItem(
             color = MaterialTheme.colorScheme.primary
         )
 
-        IconButton(onClick = { }) {
+        IconButton(onClick = onIncrease) {
             Text(
                 text = "+",
                 fontSize = 18.sp,
@@ -53,6 +55,6 @@ fun CounterItem(
 @Composable
 fun CounterItemPreview() {
     HotCoffeeTheme {
-        CounterItem()
+        CounterItem(onIncrease = {}, onDecrease = {})
     }
 }

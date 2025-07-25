@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.hotcoffee.data.remote.models.MenuItem
+import com.example.hotcoffee.presentaton.model.MenuItem
 import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,7 +19,8 @@ import com.example.hotcoffee.presentaton.ui.theme.HotCoffeeTheme
 fun CoffeeHouseMenu(
     modifier: Modifier = Modifier,
     menuItems: List<MenuItem>,
-    onClick: (MenuItem) -> Unit
+    onIncrease: (MenuItem) -> Unit,
+    onDecrease: (MenuItem) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -29,9 +30,7 @@ fun CoffeeHouseMenu(
         contentPadding = PaddingValues(all = 16.dp)
     ) {
         items(count = menuItems.size) {
-            menuItems[it].let { menuItem ->
-                MenuItem(menuItem = menuItem, onClick = { onClick(menuItem) })
-            }
+            MenuItem(menuItem = menuItems[it], onIncrease = onIncrease, onDecrease = onDecrease)
         }
         item { Spacer(modifier = Modifier.padding(100.dp)) }
     }
@@ -47,14 +46,15 @@ fun CoffeeHouseMenuPreview() {
                     id = 1,
                     name = "Coffee",
                     imageURL = "",
-                    price = 100
+                    price = 100,
+                    number = 3
                 ), MenuItem(
                     id = 2,
                     name = "Coffee2",
                     imageURL = "",
-                    price = 200
+                    price = 200,
+                    number = 2
                 )
-            )
-        ) { }
+            ), onIncrease = {}, onDecrease = {})
     }
 }

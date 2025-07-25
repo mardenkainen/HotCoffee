@@ -11,7 +11,7 @@ sealed class Screen {
     @Serializable
     object Cart: Screen()
     @Serializable
-    object Menu: Screen()
+    data class Menu(val coffeeHouseId: Int): Screen()
     @Serializable
     object CoffeeHousesList: Screen()
     @Serializable
