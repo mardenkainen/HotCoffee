@@ -1,19 +1,22 @@
 package com.example.hotcoffee.presentaton.navigation
 
+import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.hotcoffee.presentaton.screens.cart.CartScreen
+import com.example.hotcoffee.presentaton.screens.menu.MenuViewModel
 import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesScreen
+import com.example.hotcoffee.presentaton.screens.coffee_houses_list.CoffeeHousesViewModel
 import com.example.hotcoffee.presentaton.screens.login.LoginScreen
 import com.example.hotcoffee.presentaton.screens.map.MapScreen
 import com.example.hotcoffee.presentaton.screens.map.MapViewModel
 import com.example.hotcoffee.presentaton.screens.menu.MenuScreen
-import com.example.hotcoffee.presentaton.screens.menu.MenuViewModel
 import com.example.hotcoffee.presentaton.screens.register.RegisterScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +44,9 @@ fun Navigation() {
 
         composable<Screen.Menu> { backStackEntry ->
             val menu: Screen.Menu = backStackEntry.toRoute()
-            menuViewModel.loadMenu(menu.coffeeHouseId)
+            if (backStackEntry.lifecycle.currentState == Lifecycle.State.STARTED) {
+                menuViewModel.loadMenu(menu.coffeeHouseId)
+            }
             MenuScreen(navController, menuViewModel, menu.coffeeHouseId)
         }
 
